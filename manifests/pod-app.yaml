@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: azure-voting-app
+  name: azure-voting-app
+spec:
+  containers:
+  - env:
+    - name: DATABASE_URL
+      value: postgres://postgres:mypassword@10.244.0.27
+    image: acrudavoz.azurecr.io/cnny2023/azure-voting-app-rust:ca4
+    name: azure-voting-app
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}

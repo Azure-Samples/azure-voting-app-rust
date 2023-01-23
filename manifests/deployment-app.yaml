@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: azure-voting-app
+  name: azure-voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-voting-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: azure-voting-app
+    spec:
+      containers:
+      - image: acrudavoz.azurecr.io/cnny2023/azure-voting-app-rust:ca4
+        name: azure-voting-app-rust
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATABASE_URL
+          value: postgres://postgres:mypassword@10.244.0.29
+        resources: {}
+status: {}
