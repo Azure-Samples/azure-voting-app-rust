@@ -1,57 +1,59 @@
 # Project Name
 
-(short, 1-3 sentenced, description of the project)
-
-## Features
-
-This project framework provides the following features:
-
-* Feature 1
-* Feature 2
-* ...
+This is a re-implementation of the [Azure Voting App Redis] project in Rust with Postgres.  There are a few features added to allow the demonstration of some of the basic capabilities of Kubernetes for application hosting.
 
 ## Getting Started
 
 ### Prerequisites
 
-(ideally very short, if any)
-
-- OS
-- Library version
-- ...
-
-### Installation
-
-(ideally very short)
-
-- npm install [package name]
-- mvn install
-- ...
+- Azure Subscription
+- Azure CLI
 
 ### Quickstart
-(Add steps to get up and running quickly)
 
-1. git clone [repository clone url]
-2. cd [repository name]
-3. ...
+```bash
+## Clone Repository
+git clone https://github.com/Azure-Samples/azure-voting-app-rust
+cd azure-voting-app-rust
+az login
 
+## Setup Environment
+az deployment sub create --template-file ./deploy/main.bicep --location eastus
+AcrName=(az deployment sub show --name main --query 'properties.outputs.acr_name.value' -o tsv)
+AksName=(az deployment sub show --name main --query 'properties.outputs.aks_name.value' -o tsv)
+ResourceGroup=(az deployment sub show --name main --query 'properties.outputs.resource_group_name.value' -o tsv)
+az aks get-credentials --resource-group $ResourceGroup --name $AksName
 
-## Demo
+## Build App Container
+az acr build --registry $AcrName --image cnny2023/azure-voting-app-rust:{{.Run.ID}} .
+BuildTag=(az acr repository show-tags \
+                            --name $AcrName \
+                            --repository cnny2023/azure-voting-app-rust \
+                            --orderby time_desc \
+                            --query '[0]' \
+                            -o tsv)
 
-A demo app is included to show how to use the project.
+## Pods
+kubectl run azure-voting-db \
+    --image "postgres:15.0-alpine" \
+    --env "POSTGRES_PASSWORD=mypassword" \
+    --output yaml \
+    --dry-run=client > manifests/pod-db.yaml
+kubectl apply -f ./manifests/pod-db.yaml
 
-To run the demo, follow these steps:
+DB_IP=(kubectl get pod azure-voting-db -o jsonpath='{.status.podIP}')
 
-(Add steps to start up the demo)
+kubectl run azure-voting-app \
+    --image "$AcrName.azurecr.io/cnny2023/azure-voting-app-rust:$BuildTag" \
+    --env "DATABASE_URL=postgres://postgres:mypassword@$DB_IP" \
+    --output yaml \
+    --dry-run=client > manifests/pod-app.yaml
+kubectl apply -f ./manifests/pod-app.yaml
 
-1.
-2.
-3.
+## Access the app
+kubectl port-forward pod/azure-voting-app 8080:8080
+```
 
 ## Resources
 
-(Any additional resources or related projects)
-
-- Link to supporting information
-- Link to similar sample
-- ...
+TODO: Cloud Native New Year link
