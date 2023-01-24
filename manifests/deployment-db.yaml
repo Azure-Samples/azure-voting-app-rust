@@ -28,5 +28,13 @@ spec:
             secretKeyRef:
               name: azure-voting-secret
               key: POSTGRES_PASSWORD
+        volumeMounts:
+        - name: mypvc
+          mountPath: "/var/lib/postgresql/data"
+          subPath: "data"
         resources: {}
+      volumes:
+      - name: mypvc
+        persistentVolumeClaim:
+          claimName: pvc-azuredisk
 status: {}
