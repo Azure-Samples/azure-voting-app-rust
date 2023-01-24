@@ -10,7 +10,9 @@ pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!();
 
 pub fn setup() -> Pool<ConnectionManager<PgConnection>> {
     dotenv().ok();
-    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    let database_password = env::var("DATABASE_PASSWORD").expect("DATABASE_PASSWORD must be set");
+    let database_server = env::var("DATABASE_SERVER").expect("DATABASE_SERVER must be set");
+    let database_url = format!("postgres://postgres:{}@{}",database_password, database_server);
 
     info!("Establishing database connection");
     let mut connection: PgConnection;
