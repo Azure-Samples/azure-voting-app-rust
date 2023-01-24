@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: azure-voting-config
+data:
+  DATABASE_SERVER: azure-voting-db
+  FIRST_VALUE: "Go"
+  SECOND_VALUE: "Rust"

@@ -22,10 +22,14 @@ spec:
         name: azure-voting-app-rust
         ports:
         - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: azure-voting-config
         env:
-        - name: DATABASE_SERVER
-          value: azure-voting-db
         - name: DATABASE_PASSWORD
-          value: mypassword
+          valueFrom:
+            secretKeyRef:
+              name: azure-voting-secret
+              key: POSTGRES_PASSWORD
         resources: {}
 status: {}

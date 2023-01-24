@@ -24,6 +24,9 @@ spec:
         - containerPort: 5432
         env:
         - name: POSTGRES_PASSWORD
-          value: "mypassword"
+          valueFrom:
+            secretKeyRef:
+              name: azure-voting-secret
+              key: POSTGRES_PASSWORD
         resources: {}
 status: {}
