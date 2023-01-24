@@ -24,7 +24,7 @@ spec:
         - containerPort: 8080
         env:
         - name: DATABASE_SERVER
-          value: 10.244.0.29
+          value: azure-voting-db
         - name: DATABASE_PASSWORD
           value: mypassword
         resources: {}
