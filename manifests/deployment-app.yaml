@@ -18,12 +18,14 @@ spec:
         app: azure-voting-app
     spec:
       containers:
-      - image: acrudavoz.azurecr.io/cnny2023/azure-voting-app-rust:ca4
+      - image: acrudavoz.azurecr.io/cnny2023/azure-voting-app-rust:ca7
         name: azure-voting-app-rust
         ports:
         - containerPort: 8080
         env:
-        - name: DATABASE_URL
-          value: postgres://postgres:mypassword@10.244.0.29
+        - name: DATABASE_SERVER
+          value: 10.244.0.29
+        - name: DATABASE_PASSWORD
+          value: mypassword
         resources: {}
 status: {}

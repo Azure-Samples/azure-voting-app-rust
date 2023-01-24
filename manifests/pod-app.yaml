@@ -8,8 +8,10 @@ metadata:
 spec:
   containers:
   - env:
-    - name: DATABASE_URL
-      value: postgres://postgres:mypassword@10.244.0.27
+    - name: DATABASE_SERVER
+      value: 10.244.0.27
+    - name: DATABASE_PASSWORD
+      value: mypassword
     image: acrudavoz.azurecr.io/cnny2023/azure-voting-app-rust:ca4
     name: azure-voting-app
     resources: {}
