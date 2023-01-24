@@ -31,5 +31,9 @@ spec:
             secretKeyRef:
               name: azure-voting-secret
               key: POSTGRES_PASSWORD
-        resources: {}
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m
 status: {}
