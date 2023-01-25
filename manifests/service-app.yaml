@@ -3,15 +3,15 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: azure-voting-db
-  name: azure-voting-db
+    app: azure-voting-app
+  name: azure-voting-app
 spec:
   ports:
-  - port: 5432
+  - port: 80
     protocol: TCP
-    targetPort: 5432
+    targetPort: 8080
   selector:
-    app: azure-voting-db
+    app: azure-voting-app
   type: ClusterIP
 status:
   loadBalancer: {}
