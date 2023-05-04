@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   db:
     image: postgres:15.0-alpine
@@ -12,7 +12,8 @@ services:
     image: azure-voting-app-rust:v0.1-alpha
     container_name: azure-voting-app
     environment:
-      DATABASE_URL: "postgres://postgres:mypassword@azure-voting-db"
+      DATABASE_SERVER: "azure-voting-db"
+      DATABASE_PASSWORD: "mypassword"
       FIRST_VALUE: "Puppies"
       SECOND_VALUE: "Kittens"
     ports:
