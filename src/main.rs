@@ -6,6 +6,7 @@ mod model;
 mod schema;
 use crate::schema::votes::vote_value;
 use actix_files::Files;
+use actix_web::web::Data;
 use actix_web::{middleware::Logger, post, web, App, HttpResponse, HttpServer};
 use database::setup;
 use diesel::{dsl::*, pg::PgConnection, prelude::*, r2d2::ConnectionManager};
@@ -192,7 +193,7 @@ async fn main() -> std::io::Result<()> {
             // .wrap(Logger::new("%a %{User-Agent}i")) // <- optionally create your own format
             .app_data(vote_counter.clone()) // <- register the created data
             .app_data(handlebars_ref.clone())
-            .data(pool.clone())
+            .app_data(Data::new(pool.clone()))
             .service(Files::new("/static", "static").show_files_listing())
             .route("/", web::get().to(index))
             .service(submit)
