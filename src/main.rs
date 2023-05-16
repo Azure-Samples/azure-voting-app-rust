@@ -22,7 +22,6 @@ use std::env::var;
 use std::fmt;
 use std::sync::Mutex;
 
-
 lazy_static! {
     static ref FIRST_VALUE: String = var("FIRST_VALUE").unwrap_or("Dogs".to_string());
     static ref SECOND_VALUE: String = var("SECOND_VALUE").unwrap_or("Cats".to_string());
@@ -48,18 +47,14 @@ impl fmt::Display for VoteValue {
 impl VoteValue {
     fn source_value(input: &str) -> VoteValue {
         if input == *FIRST_VALUE {
-            return VoteValue::FirstValue
-        }
-        else if input == *SECOND_VALUE {
-            return VoteValue::SecondValue
-        }
-        else if input == "Reset" {
-            return VoteValue::Reset
-        }
-        else {
+            return VoteValue::FirstValue;
+        } else if input == *SECOND_VALUE {
+            return VoteValue::SecondValue;
+        } else if input == "Reset" {
+            return VoteValue::Reset;
+        } else {
             panic!("Failed to match the vote type from {}", input);
         };
-           
     }
 }
 
@@ -88,7 +83,7 @@ async fn submit(
 
     info!("Vote is: {}", &form.vote);
     info!("Debug Vote is: {:?}", &form.vote);
-    
+
     let vote = VoteValue::source_value(&form.vote);
 
     match vote {
@@ -166,12 +161,16 @@ async fn main() -> std::io::Result<()> {
 
     // Load up the dog votes
     let first_value_query = votes.filter(vote_value.eq(FIRST_VALUE.clone()));
-    let first_value_result = first_value_query.select(count(vote_value)).first(&mut connection);
+    let first_value_result = first_value_query
+        .select(count(vote_value))
+        .first(&mut connection);
     let first_value_count = first_value_result.unwrap_or(0);
 
     // Load up the cat votes
     let second_value_query = votes.filter(vote_value.eq(SECOND_VALUE.clone()));
-    let second_value_result = second_value_query.select(count(vote_value)).first(&mut connection);
+    let second_value_result = second_value_query
+        .select(count(vote_value))
+        .first(&mut connection);
     let second_value_count = second_value_result.unwrap_or(0);
 
     // Note: web::Data created _outside_ HttpServer::new closure
