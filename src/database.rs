@@ -18,7 +18,7 @@ pub fn setup() -> Pool<ConnectionManager<PgConnection>> {
         Ok(user) => user,
         Err(_) => {
             std::fs::read_to_string("/mnt/secrets-store/database-user")
-                .expect("Failed to read database-user from /mnt/secrets-store")
+                .unwrap_or_else(|_| "postgres".to_string())
         }
     };
 
