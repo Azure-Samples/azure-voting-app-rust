@@ -1,7 +1,7 @@
 #################
 ## build stage ##
 #################
-FROM rust:1-bullseye AS builder
+FROM rust:1.70-bullseye AS builder
 WORKDIR /code
 
 # Download crates-io index and fetch dependency code.
