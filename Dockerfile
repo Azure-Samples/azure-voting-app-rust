@@ -23,11 +23,12 @@ RUN cargo build --release
 ###############
 ## run stage ##
 ###############
-FROM debian:bullseye
+FROM debian:bookworm
 WORKDIR /app
 
-RUN USER=root apt update -y
-RUN USER=root apt install libpq5 -y
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libpq5 \
+    && rm -rf /var/lib/apt/lists/*
 
 # copy server binary from build stage
 COPY --from=builder /code/target/release/azure-voting-app-rust azure-voting-app-rust
