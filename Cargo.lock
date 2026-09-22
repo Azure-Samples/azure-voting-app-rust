@@ -433,9 +433,9 @@ dependencies = [
 
 [[package]]
 name = "diesel"
-version = "2.1.0"
+version = "2.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f7a532c1f99a0f596f6960a60d1e119e91582b24b39e2d83a190e61262c3ef0c"
+checksum = "ff236accb9a5069572099f0b350a92e9560e8e63a9b8d546162f4a5e03026bb2"
 dependencies = [
  "bitflags 2.3.1",
  "byteorder",
@@ -447,9 +447,9 @@ dependencies = [
 
 [[package]]
 name = "diesel_derives"
-version = "2.1.0"
+version = "2.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "74398b79d81e52e130d991afeed9c86034bb1b7735f46d2f5bf7deb261d80303"
+checksum = "14701062d6bed917b5c7103bdffaee1e4609279e240488ad24e7bd979ca6866c"
 dependencies = [
  "diesel_table_macro_syntax",
  "proc-macro2",
@@ -514,6 +514,12 @@ dependencies = [
  "regex",
  "termcolor",
 ]
+
+[[package]]
+name = "equivalent"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5443807d6dff69373d433ab9ef5378ad8df50ca6298caf15de6e52e24aaf54d5"
 
 [[package]]
 name = "errno"
@@ -614,9 +620,9 @@ dependencies = [
 
 [[package]]
 name = "h2"
-version = "0.3.19"
+version = "0.3.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d357c7ae988e7d2182f7d7871d0b963962420b0678b0997ce7de72001aeab782"
+checksum = "81fe527a889e1532da5c525686d96d4c2e74cdd345badf8dfef9f6b39dd5f5e8"
 dependencies = [
  "bytes",
  "fnv",
@@ -624,7 +630,7 @@ dependencies = [
  "futures-sink",
  "futures-util",
  "http",
- "indexmap",
+ "indexmap 2.5.0",
  "slab",
  "tokio",
  "tokio-util",
@@ -651,6 +657,12 @@ name = "hashbrown"
 version = "0.12.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8a9ee70c43aaf417c914396645a0fa852624801b24ebb7ae78fe8272889ac888"
+
+[[package]]
+name = "hashbrown"
+version = "0.14.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e5274423e17b7c9fc20b6e7e208532f9b19825d82dfd615708b70edd83df41f1"
 
 [[package]]
 name = "hermit-abi"
@@ -719,7 +731,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bd070e393353796e801d209ad339e89596eb4c8d430d18ede6a1cced8fafbd99"
 dependencies = [
  "autocfg",
- "hashbrown",
+ "hashbrown 0.12.3",
+]
+
+[[package]]
+name = "indexmap"
+version = "2.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "68b900aa2f7301e21c36462b170ee99994de34dff39a4a6a528e80e7376d07e5"
+dependencies = [
+ "equivalent",
+ "hashbrown 0.14.5",
 ]
 
 [[package]]
@@ -774,9 +796,9 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "libc"
-version = "0.2.146"
+version = "0.2.159"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f92be4933c13fd498862a9e02a3055f8a8d9c039ce33db97306fd5a6caa7f29b"
+checksum = "561d97a539a36e26a9a5fad1ea11a3039a67714694aaa379433e580854bc3dc5"
 
 [[package]]
 name = "linux-raw-sys"
@@ -872,9 +894,9 @@ dependencies = [
 
 [[package]]
 name = "mio"
-version = "0.8.8"
+version = "0.8.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "927a765cd3fc26206e66b296465fa9d3e5ab003e651c1b3c060e7956d96b19d2"
+checksum = "a4a650543ca06a924e8b371db273b2756685faae30f8487da1b56505a8f78b0c"
 dependencies = [
  "libc",
  "log",
@@ -1413,7 +1435,7 @@ version = "0.19.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2380d56e8670370eee6566b0bfd4265f65b3f432e8c6d85623f728d4fa31f739"
 dependencies = [
- "indexmap",
+ "indexmap 1.9.3",
  "serde",
  "serde_spanned",
  "toml_datetime",
